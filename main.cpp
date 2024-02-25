@@ -26,10 +26,29 @@ void printList(Node* list) {
 }
 
 int addLists(Node* listA, Node* listB) {
-////
-// insert code here
-return 0;
-////
+    int sum = 0;
+    int carry = 0;
+    int multiplier = 1; // To keep track of the digit position
+
+    while (listA != nullptr || listB != nullptr || carry != 0) {
+        int digitA = (listA != nullptr) ? listA->data : 0;
+        int digitB = (listB != nullptr) ? listB->data : 0;
+
+        int total = digitA + digitB + carry;
+        int digitSum = total % 10; // Extract the last digit of the total
+        carry = total / 10;        // Update carry for the next iteration
+
+        sum += digitSum * multiplier; // Add the digit to the sum
+
+        // Move to the next nodes in the linked lists
+        if (listA != nullptr) listA = listA->next;
+        if (listB != nullptr) listB = listB->next;
+
+        // Increment the multiplier to move to the next digit position
+        multiplier *= 10;
+    }
+
+    return sum;
 }
 
 Node* genList(int number) {
